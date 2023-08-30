@@ -49,9 +49,16 @@
                   <a href="#" class="auth-link text-black">Lupa Kata sandi?</a>
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-green btn-lg font-weight-medium auth-form-btn" type="submit" name="submit" >SIGN IN</button>
+                  <button class="btn btn-green btn-block btn-lg font-weight-medium auth-form-btn" type="submit" name="submit" >
+                    <i class="ti-user menu-icon" ></i>
+                    SIGN IN
+                  </button>
                 </div>
               </form>
+              <div class="my-2 d-flex align-items-center justify-content-between ">
+                    <p class="fs-5 mb-0 fw-bold ">Belum punya Akun?</p>
+                    <a href="/register" class="fs-3 auth-link text-black">Buat Akun Baru</a>
+                  </div>
             </div>
           </div>
         </div>

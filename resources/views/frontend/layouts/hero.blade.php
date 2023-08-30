@@ -8,7 +8,7 @@
 							<p class="subtitle">Solusi Belanja Tepat, Hemat, dan Lengkap</p></p>
 							<h1>Minimarket Vinintamart</h1>
 							<div class="hero-btns">
-								<a href="shop.html" class="boxed-btn">Product Collection</a>
+								<a href="/shop" class="boxed-btn">Product Collection</a>
 								<a href="contact.html" class="bordered-btn">Contact Us</a>
 							</div>
 						</div>

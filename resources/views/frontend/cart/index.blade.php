@@ -16,11 +16,8 @@
 </head>
 
 <body>
-
-
     @include('frontend.layouts.header')
     @include('frontend.layouts.search')
-
     <!-- breadcrumb-section -->
     <div class="breadcrumb-section breadcrumb-bg">
         <div class="container">
@@ -35,7 +32,6 @@
         </div>
     </div>
     <!-- end breadcrumb section -->
-
     <!-- cart -->
     <div class="cart-section mt-150 mb-150">
         <div class="container">
@@ -45,24 +41,19 @@
                         <table class="cart-table">
                             <thead class="cart-table-head">
                                 <tr class="table-head-row">
-                                    <th class="product-remove"></th>
+                                    <th class="product-number">No</th>
                                     <th class="product-image">Product Image</th>
                                     <th class="product-name">Name</th>
                                     <th class="product-price">Price</th>
                                     <th class="product-quantity">Quantity</th>
                                     <th class="product-total">Total</th>
+                                    <th class="product-remove"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($cartItems as $cartItem)
                                 <tr class="table-body-row">
-                                    <th class="product-remove">
-                                        <form action="{{ route('cart.destroy', $cartItem) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-warning btn-sm" type="submit"><i class="far fa-window-close"></i></button>
-                                        </form>
-                                    </th>
+                                    <td class="product-number">{{ $loop->iteration }}</td>
                                     <td class="product-image">
                                         <img src="{{ asset('images/' . $cartItem->product->gambar) }}" alt="Product Image">
                                     </td>
@@ -77,22 +68,27 @@
                                         </form>
                                     </td>
                                     <td class="product-total">Rp{{number_format($cartItem->calculateTotalPrice(), 0, ',', '.') }}</td>
+                                    <th class="product-remove">
+                                        <form action="{{ route('cart.destroy', $cartItem) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="btn btn-danger btn-sm" type="submit"><i class="far fa-window-close"></i></button>
+                                        </form>
+                                    </th>
                                 </tr>
                                 @endforeach
-
                             </tbody>
 
                         </table>
                     </div>
                 </div>
-
                 <div class="col-lg-4">
                     <div class="total-section">
                         <table class="total-table">
                             <thead class="total-table-head">
                                 <tr class="table-total-row">
                                     <th></th>
-                                    <th>Total</th>
+                                    <th>Total Harga</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,9 +99,22 @@
                             </tbody>
                         </table>
                         <div class="cart-buttons">
-                            </td>
+                        @if (count($cartItems) > 0)
+                            <form action="{{url('simpan-pesanan')}}" method="POST">
+                                @csrf
+                                <p>Shipping<select name="shipping" id="id_shipping" class="form-control @error('id_shipping') is-invalid @enderror">
+                                        <option value="">Pilih Kecamatan</option>
+                                        @foreach ($shippings as $shipping)
+                                        <option value="{{ $shipping->id }}" {{ old('id_shipping') == $shipping->id ? 'selected' : '' }}>
+                                            {{ $shipping->kec }}
+                                        </option>
 
-                            <a href="/checkout" class="boxed-btn black">Check Out</a>
+                                        @endforeach
+                                    </select></p>
+                                <input type="hidden" name="pesanan" value="{{$cartItem->cart->id ?? '-'}}">
+                                <button class="btn btn-warning" type="submit">Checkout</button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -113,14 +122,10 @@
         </div>
     </div>
     <!-- end cart -->
-
     @include('frontend.layouts.logo')
     @include('frontend.layouts.footer')
-
-
     <!-- jquery -->
     @include('frontend.layouts.js')
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

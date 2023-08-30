@@ -26,17 +26,14 @@
 								<li class="current-list-item"><a href="#">Home</a>
 									<ul class="sub-menu">
 										<li><a href="/home">Static Home</a></li>
-										<li><a href="index_2.html">Slider Home</a></li>
 									</ul>
 								</li>
-								<li><a href="about.html">About</a></li>
 								<li><a href="#">Pages</a>
 									<ul class="sub-menu">
 										<li><a href="/cart">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
+										<li><a href="/checkout">Check Out</a></li>
+										<li><a href="/riwayat">Riwayat</a></li>
+										<li><a href="/shop">Shop</a></li>
 									</ul>
 								</li>
 								<li><a href="news.html">News</a>
@@ -50,14 +47,29 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="/cart"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                        @if(Auth::check())
+                                        <i class="fa fa-user mx-2"></i>{{Auth::user()->name}}
+                                        <a>
+                                    <form action="/logout" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn rounded-0 btn-sm me-2">
+                                        <i class="fa-solid fas fa-power-off"></i>
+                                    </button>
+                                </form>
+</a>
+                            @else
+                            <a href="/login"><i class="fa fa-user"></i> Login</a>
+                            @endif
+                        </div>
 									</div>
 								</li>
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
+
 						<!-- menu end -->
 					</div>
 				</div>

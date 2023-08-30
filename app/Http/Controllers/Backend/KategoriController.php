@@ -13,8 +13,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('backend.kategori.index',[
-            'kategoris' => Kategori::latest()->paginate(6)
+        return view('backend.kategori.index', [
+            'kategoris' => Kategori::first()->paginate(0)
         ]);
     }
     /**
@@ -30,12 +30,12 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedDate=$request->validate([
+        $validatedDate = $request->validate([
             'name' => 'required',
         ]);
 
-       Kategori::create($validatedDate);
-       return redirect('/kategori');
+        Kategori::create($validatedDate);
+        return redirect('/kategori');
     }
 
     /**
@@ -43,7 +43,8 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kategoris = Kategori::all(); // Contoh pengambilan data dari model
+        return view('backend.kategori.index', compact('kategoris'));
     }
 
     /**
@@ -51,7 +52,8 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kategoris = Kategori::findOrFail($id);
+        return view('backend.kategori.edit', compact('kategoris'));
     }
 
     /**
@@ -59,7 +61,16 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $validatedDate = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $kategori->update([
+            'name' => $request->input('name')
+        ]);
+
+        return redirect('kategori')->with('pesan_edit', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -67,6 +78,10 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        // Redirect atau sesuaikan respons setelah penghapusan data
+        return redirect('kategori')->with('pesan_hapus', 'Data berhasil dihapus.');
     }
 }
