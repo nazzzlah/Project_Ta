@@ -32,19 +32,26 @@ class CartItemController extends Controller
         $id_user = Auth::user()->id;
 
         $cart = Cart::where('id_user', $id_user)->where('status', 0)->first();
-
+        $total_harga = $request->input('harga');
         if (!$cart) {
             $cart = new Cart();
             $cart->id_user = $id_user;
             $cart->status = 0;
-            $cart->total_harga = 0;
+            $cart->total_harga = $total_harga;
+            $cart->save();
+        } else {
+            $new_item_harga = $request->input('harga');
+            $updated_total_harga = $cart->total_harga + $new_item_harga;
+
+            $cart->total_harga = $updated_total_harga;
             $cart->save();
         }
+        $cart->save();
 
         $product = Product::findOrFail($id);
         $cartItem = CartItem::where('id_cart', $cart->id)
             ->where('id_produk', $product->id)
-            ->where('ls_checkout', false)
+            ->where('ls_checkout', 0)
             ->first();
 
         if ($cartItem) {
@@ -73,34 +80,35 @@ class CartItemController extends Controller
     }
 
     public function showCart()
-{
-    $user_id = Auth::user()->id;
+    {
+        $user_id = Auth::user()->id;
 
-    $cart = Cart::where('id_user', $user_id)
+        $cart = Cart::where('id_user', $user_id)
+            ->where('status', 0)
+            ->first();
+
+        $cartItems = [];
+
+        if ($cart) {
+            $cartItems = CartItem::with('product')
+                ->where('id_cart', $cart->id)
                 ->where('status', 0)
-                ->first();
+                ->get();
+        }
 
-    $cartItems = [];
+        $totalPriceByQuantity = 0;
+        $totalPriceByProduct = CartItem::calculateTotalPriceAllProducts($cartItems);
 
-    if ($cart) {
-        $cartItems = CartItem::with('product')
-            ->where('id_cart', $cart->id)
-            ->get();
+        foreach ($cartItems as $cartItem) {
+            $totalPriceByQuantity += $cartItem->calculateTotalPrice();
+        }
+
+        return view('frontend.cart.index', [
+            'cartItems' => $cartItems,
+            'totalPriceByProduct' => $totalPriceByProduct,
+            'shippings' => Shipping::get()
+        ]);
     }
-
-    $totalPriceByQuantity = 0;
-    $totalPriceByProduct = CartItem::calculateTotalPriceAllProducts($cartItems);
-
-    foreach ($cartItems as $cartItem) {
-        $totalPriceByQuantity += $cartItem->calculateTotalPrice();
-    }
-
-    return view('frontend.cart.index', [
-        'cartItems' => $cartItems,
-        'totalPriceByProduct' => $totalPriceByProduct,
-        'shippings' => Shipping::get()
-    ]);
-}
 
 
 

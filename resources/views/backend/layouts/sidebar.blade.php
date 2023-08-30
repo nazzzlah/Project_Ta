@@ -43,11 +43,6 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-              <i class="ti-bar-chart menu-icon"></i>
-              <span class="menu-title">Data Slider</span>
-            </a>
           </li><li class="nav-item">
             <a class="nav-link" href="/transaksi">
               <i class="ti-stats-up menu-icon"></i>

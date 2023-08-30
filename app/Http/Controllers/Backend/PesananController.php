@@ -16,7 +16,7 @@ class PesananController extends Controller
     public function index()
     {
         return view('backend.pesanan.index', [
-            'pemesanan' => Pesanan::paginate(10)
+            'pemesanan' => Pesanan::paginate()
         ]);
     }
 

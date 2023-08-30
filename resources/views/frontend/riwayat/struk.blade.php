@@ -16,30 +16,13 @@
 </head>
 
 <body>
-    @include('frontend.layouts.header')
-    @include('frontend.layouts.search')
-    <!-- breadcrumb-section -->
-    <div class="breadcrumb-section breadcrumb-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="breadcrumb-text">
-                        <p>Solusi Belanja Tepat, Hemat, dan Lengkap</p>
-                        <h1>Riwayat</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end breadcrumb section -->
-    <!-- cart -->
     <div class="cart-section mt-150 mb-150">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12">
                     <div class="cart-table-wrap">
                         <table class="cart-table">
-                            <thead class="cart-table-head">
+                            <thead class="cart-table-head text-center">
                                 <tr class="table-head-row">
                                 <tr>
                                     <th>No</th>
@@ -57,23 +40,22 @@
                                     <td>{{ $cartItem->qty }}</td>
                                     <td>Rp{{ number_format($cartItem->total_harga, 0, ',', '.') }}</td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <td colspan="4">-- Data Tidak Ada</td>
+                                @endforelse
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Total Belanja</td>
+                                    <td>Rp{{ number_format($totalHarga, 0, ',', '.') }}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    <!-- end cart -->
-    @include('frontend.layouts.logo')
-    @include('frontend.layouts.footer')
-    <!-- jquery -->
-    @include('frontend.layouts.js')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

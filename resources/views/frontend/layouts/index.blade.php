@@ -38,7 +38,7 @@
     @yield('container')
     @include('frontend.layouts.hero')
     @include('frontend.layouts.features')
-    @include('frontend.layouts.cart')
+    @include('frontend.layouts.news')
     @include('frontend.layouts.footer')
 
 

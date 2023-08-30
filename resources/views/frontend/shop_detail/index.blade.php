@@ -26,7 +26,7 @@
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
 						<p>Solusi Belanja Tepat, Hemat, dan Lengkap</p>
-						<h1>Produk</h1>
+						<h1>Produk Detail</h1>
 					</div>
 				</div>
 			</div>
@@ -42,19 +42,18 @@
 			<div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
-						<img src="assets/img/products/product-img-5.jpg" alt="">
+						<img  src="{{ asset('images/' . $product->gambar) }}" alt="">
 					</div>
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-content">
-						<h3>Green apples have polyphenols</h3>
-						<p class="single-product-pricing"><span>Per Kg</span> $50</p>
-						<p></p>
+						<h3>{{$product->kode_produk ?? '-'}}</h3>
+						<h3>{{$product->nama_produk ?? '-'}}</h3>
+						<p>Rp {{number_format($product->harga, 0,','.',')}}</p>
+						<p>{{$product->deskripsi ?? '-'}}</p>
 						<div class="single-product-form">
-
+                        {{$product->jumlah ?? '-'}} pcs
 						</div>
-
-
 					</div>
 				</div>
 			</div>

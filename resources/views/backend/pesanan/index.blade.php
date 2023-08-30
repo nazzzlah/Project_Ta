@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title"></h4>
-            <h1 class="text-center">Pesanan Baru</h1>
+            <h1 class="text-center">Pesanan</h1>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
               @if (session()->has('pesan_edit'))
               <div class="alert alert-primary alert-dismissible fade show mt-3" role="alert">

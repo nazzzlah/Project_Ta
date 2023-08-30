@@ -14,17 +14,10 @@ class ShopDetailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $products = Product::all();
-        // dd($products);
-        return view ('frontend.shop_detail.index',compact('products'));
-        // $product = Product::find($id);
-        // if (!$product) {
-        //     abort(404);
-        // }
-        // return view ('frontend.shop_detail.index',compact('products'));
-
+        $product = Product::where('id',$id)->first();
+        return view ('frontend.shop_detail.index',compact('product'));
     }
 
     /**

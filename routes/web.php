@@ -33,47 +33,47 @@ use App\Http\Controllers\Frontend\TransaksiController;
 // });
 
 Route::get('/home',[FrontendController::class,'index'] );
-Route::get('/shop',[ShopController::class,'index'] );
-Route::get('/shopdetail',[ShopDetailController::class,'index'] );
+Route::get('/shop',[ShopController::class,'index'] )->middleware('auth');
+Route::get('/shopdetail/{id}',[ShopDetailController::class,'index'] )->middleware('auth');
 // Route::get('/shopdetail/{id}', [ShopDetailController::class, 'index'])->name('product.show');
 
 // Route::get('/cart',[CartController::class,'index'] );
 
-Route::get('/index',[BackendController::class,'index'] );
-Route::get('/login',[LoginController::class,'index'] );
+Route::get('/index',[BackendController::class,'index'] )->middleware('auth');
+Route::get('/login',[LoginController::class,'index'] )->name('login');
 Route::post('login', [LoginController::class,'login']);
 Route::post('logout', [LoginController::class,'logout']);
 Route::get('/register', [LoginController::class, 'register']);
 Route::post('/signup', [LoginController::class, 'signup']);
-Route::resource('/kategori', KategoriController::class);
-Route::resource('/product', ProductController::class);
-Route::resource('/pesanan', PesananController::class);
-Route::resource('/transaksi', TBController::class);
+Route::resource('/kategori', KategoriController::class)->middleware('auth');
+Route::resource('/product', ProductController::class)->middleware('auth');
+Route::resource('/pesanan', PesananController::class)->middleware('auth');
+Route::resource('/transaksi', TBController::class)->middleware('auth');
 
 
 // Route::post('/addtocart', [CartItemController::class,'addToCart']);
-Route::get('/cart', [CartItemController::class, 'showCart'])->name('cart.show');
-Route::get('/checkout/{id}',[CheckoutController::class,'index'] );
+Route::get('/cart', [CartItemController::class, 'showCart'])->name('cart.show')->middleware('auth');
+Route::get('/checkout/{id}',[CheckoutController::class,'index'] )->middleware('auth');
 // Route::Post('/checkout',[CheckoutController::class,'store'] );
 
-Route::post('/add-to-cart/{product}', [CartItemController::class,'addToCart']);
-Route::patch('/cart/update/{cartItem}', [CartItemController::class, 'update'])->name('cart.update');
-Route::patch('/cart/destroy/{cartItem}', [CartItemController::class, 'destroy'])->name('cart.destroy');
+Route::post('/add-to-cart/{product}', [CartItemController::class,'addToCart'])->middleware('auth');
+Route::patch('/cart/update/{cartItem}', [CartItemController::class, 'update'])->name('cart.update')->middleware('auth');
+Route::patch('/cart/destroy/{cartItem}', [CartItemController::class, 'destroy'])->name('cart.destroy')->middleware('auth');
 
-Route::get('/cart/total', [CartItemController::class, 'calculateTotalCartPrice'])->name('cart.total');
+Route::get('/cart/total', [CartItemController::class, 'calculateTotalCartPrice'])->name('cart.total')->middleware('auth');
 
 // PESANAN
-Route::post('simpan-pesanan', [CartController::class, 'simpan_pesanan']);
-Route::post('simpan-checkout', [CheckoutController::class, 'store']);
-Route::post('simpan-transaksi', [TransaksiController::class, 'store']);
-Route::get('transaksi-frontend/{id}', [TransaksiController::class, 'index']);
+Route::post('simpan-pesanan', [CartController::class, 'simpan_pesanan'])->middleware('auth');
+Route::post('simpan-checkout', [CheckoutController::class, 'store'])->middleware('auth');
+Route::post('simpan-transaksi', [TransaksiController::class, 'store'])->middleware('auth');
+Route::get('transaksi-frontend/{id}', [TransaksiController::class, 'index'])->middleware('auth');
 
-Route::resource('/riwayat', FrontendRiwayatController::class);
-Route::get('/print/{id}', [FrontendRiwayatController::class,'print']);
-Route::post('/riwayat/{id}', [FrontendRiwayatController::class,'update']);
+Route::resource('/riwayat', FrontendRiwayatController::class)->middleware('auth');
+Route::get('/print/{id}', [FrontendRiwayatController::class,'print'])->middleware('auth');
+Route::post('/riwayat/{id}', [FrontendRiwayatController::class,'update'])->middleware('auth');
 
 
-Route::post('/update-status/{id}', [PesananController::class, 'updateStatus'])->name('update.status');
+Route::post('/update-status/{id}', [PesananController::class, 'updateStatus'])->name('update.status')->middleware('auth');
 
 
 

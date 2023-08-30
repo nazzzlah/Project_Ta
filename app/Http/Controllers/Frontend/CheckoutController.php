@@ -19,18 +19,16 @@ class CheckoutController extends Controller
     public function index($id)
     {
         $pesanan = Pesanan::where('id', $id)->first();
-        //dd($pesanan);
         // dd($pesanan);
         $user_id = Auth::user()->id;
         // dd($user_id);
         $cart = Cart::where('id_user', $user_id)->first();
+        // dd($cart);
 
-        $cartItems = CartItem::join('products', 'cart_items.id_produk', '=', 'products.id')
-            ->select('cart_items.*', 'products.nama_produk')
-            ->where('cart_items.id_cart', $cart->id)
-            ->where('cart_items.ls_checkout', false)
-            ->get();
+        $cartItems = CartItem::where('status',0)->get();
+
         // dd($cartItems);
+
         $totalPriceByQuantity = 0;
         $totalPriceByProduct = 0;
 
@@ -102,6 +100,10 @@ class CheckoutController extends Controller
 
         $totalKeseluruhan = $totalHargaCartItems + $shippingCost;
 
+        $cartItem = CartItem::where('id_cart', $id_cart);
+        $cartItem->update([
+            'status' => 1
+        ]);
 
         $pesanan = Pesanan::updateOrCreate(
             ['id_cart' => $id_cart],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Pesanan;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
@@ -21,9 +22,16 @@ class CartController extends Controller
         $id_shipping = $request->input('shipping');
         $id_cart = $request->input('pesanan');
 
-        $carts = Cart::where('id', $id_cart);
-        $carts->update([
-            'status'=>1
+        $cart = Cart::find($id_cart);
+
+        if ($cart) {
+            $cart->update([
+                'status' => 1
+            ]);
+        }
+
+        Cartitem::where('id_cart', $id_cart)->update([
+            'ls_checkout' => 1
         ]);
 
         $pesanan = Pesanan::updateOrCreate(
@@ -37,7 +45,7 @@ class CartController extends Controller
 
         $cart = Cart::find($id_cart); // Ambil data cart berdasarkan id
         $total_harga_cart = $cart->total_harga; // Ambil total_harga dari cart
-        
+
         $shipping = Shipping::find($id_shipping);
         $biaya_shipping = $shipping->harga;
         // Ubah kolom biaya sesuai dengan yang ada di tabel Shipping

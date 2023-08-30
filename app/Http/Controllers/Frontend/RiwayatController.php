@@ -17,12 +17,10 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-
+        $riwayat = Pesanan::where('total_harga', '<>', null)->paginate(10);
         return view('frontend.riwayat.index', [
-            'pemesanan' => Pesanan::paginate()
+            'pemesanan' => $riwayat
         ]);
-
-
     }
 
 
@@ -47,28 +45,30 @@ class RiwayatController extends Controller
      */
     public function show(string $id)
     {
-         // Ambil data transaksi dari tabel penjualan berdasarkan ID
-         $pesanan = Pesanan::findOrFail($id);
+        // Ambil data transaksi dari tabel penjualan berdasarkan ID
+        $pesanan = Pesanan::findOrFail($id);
 
 
-         // Ambil data transaksi yang terkait dari tabel transaksi
-         $pesanan = Pesanan::where('', $id)->get();
+        // Ambil data transaksi yang terkait dari tabel transaksi
+        $pesanan = Pesanan::where('', $id)->get();
 
-         return view('/riwayat', compact('pesanan'));
+        return view('/riwayat', compact('pesanan'));
     }
 
     public function print(string $id)
     {
         $pesanan = Pesanan::findOrFail($id);
-        $cartItem = CartItem::where('id_cart', $pesanan->id)->get();
-        // dd($cartItem);
+        $id_cart_pesanan = $pesanan->id_cart;
+
+        $cartItems = CartItem::where('id_cart', $id_cart_pesanan)->get();
+        $totalHarga = $cartItems->sum('total_harga');
+        // dd($cartItems);
 
         // Ambil data transaksi yang terkait dari tabel transaksi
-        return view('frontend.riwayat.struk',[
-            'cartItem' => $cartItem
+        return view('frontend.riwayat.struk', [
+            'cartItem' => $cartItems,
+            'totalHarga' => $totalHarga
         ]);
-
-
     }
 
     /**

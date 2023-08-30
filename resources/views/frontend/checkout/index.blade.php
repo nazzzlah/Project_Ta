@@ -95,16 +95,17 @@
                         <table class="order-details">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Total</th>
+                                    <th colspan="2" class="text-center">Total</th>
                                 </tr>
                             </thead>
-
                             <tbody class="checkout-details">
                                 <tr>
-                                    <td>Shipping</td>
-
-                                    <td>Rp{{number_format($pesanan->shipping->harga, 0, ',', '.')}}</td>
+                                    <td>Ongkir</td>
+                                    <td>Rp{{number_format($pesanan->shipping->harga, 0, ',', '.')}},- ({{$pesanan->shipping->kec}})</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Belanja</td>
+                                    <td>Rp{{number_format(($pesanan->shipping->harga + $totalPriceByProduct), 0, ',', '.')}},-</td>
                                 </tr>
                             </tbody>
                         </table>

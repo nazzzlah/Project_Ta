@@ -47,7 +47,7 @@
                                     <th class="product-price">Price</th>
                                     <th class="product-quantity">Quantity</th>
                                     <th class="product-total">Total</th>
-                                    <th class="product-remove"></th>
+                                    <th class="product-remove text-center">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,8 +63,8 @@
                                         <form action="{{ route('cart.update', $cartItem) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-                                            <input type="number" name="qty" placeholder="0" value="{{ $cartItem->qty }}">
-                                            <button class="btn btn-warning" type="submit">Update</button>
+                                            <input type="number" class="w-25 me-2" name="qty" placeholder="0" value="{{ $cartItem->qty }}">
+                                            <button class="btn btn-warning btn-sm" type="submit">Update</button>
                                         </form>
                                     </td>
                                     <td class="product-total">Rp{{number_format($cartItem->calculateTotalPrice(), 0, ',', '.') }}</td>
@@ -99,7 +99,7 @@
                             </tbody>
                         </table>
                         <div class="cart-buttons">
-                        @if (count($cartItems) > 0)
+                            @if (count($cartItems) > 0)
                             <form action="{{url('simpan-pesanan')}}" method="POST">
                                 @csrf
                                 <p>Shipping<select name="shipping" id="id_shipping" class="form-control @error('id_shipping') is-invalid @enderror">

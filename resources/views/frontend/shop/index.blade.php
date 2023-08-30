@@ -38,19 +38,20 @@
 
             <div class="row product-lists" id="productLists">
                 @foreach ($products as $product)
-                <div class="col-lg-4 col-md-6 text-center single-product-item {{ strtolower($product->kategori->name) }}">
+                <div class="col-lg-4 text-center single-product-item {{ strtolower($product->kategori->name) }}">
                     <div class="{{ strtolower($product->nama_produk) }}">
                         <div class="product-image">
-                            <a href="/shopdetail"><img src="{{ asset('images/' . $product->gambar) }}" alt="" style="width: 80px; height: 150 px;" width="100px" height="80px"></a>
+                            <a href="/shopdetail/{{$product->id}}"><img src="{{ asset('images/' . $product->gambar) }}" alt="" style="width: 80px; height: 150 px;" width="100px" height="80px"></a>
                         </div>
-                        <a href="">/shopdetail/{{$product->id}}
+                        <a href="/shopdetail/{{$product->id}}">
                             <h3>{{ $product->nama_produk }}</h3>
                         </a>
-                        <p class="product-price">Rp{{ $product->harga }}</p>
+                        <p class="product-price">Rp {{ number_format($product->harga, 0, '.'.'.')}}</p>
 
                         <!-- Informasi produk -->
                         <form action="{{url('add-to-cart')}}/{{$product->id}}" method="POST">
                             @csrf
+                            <input type="hidden" name="harga" value="{{$product->harga}}">
                             <button class="btn btn-danger" type="submit" class="btn btn-danger"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </form>
                     </div>

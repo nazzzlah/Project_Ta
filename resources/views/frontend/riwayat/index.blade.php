@@ -10,8 +10,8 @@
     <!-- title -->
     <title>Cart</title>
 
-    <!-- favicon -->
     @include('frontend.layouts.css')
+
 
 </head>
 
@@ -33,10 +33,10 @@
     </div>
     <!-- end breadcrumb section -->
     <!-- cart -->
-    <div class="cart-section mt-150 mb-150">
+    <div class="cart-section mt-5 mb-150">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-12">
                     <div class="cart-table-wrap">
                         <table class="cart-table">
                             <thead class="cart-table-head">
@@ -56,7 +56,7 @@
                                 @forelse($pemesanan as $pesanan)
                                 <tr class="table-body-row">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pesanan-> created_at}}</td>
+                                    <td>{{ $pesanan->created_at->format('d M Y') }}</td>
                                     <td>{{ $pesanan-> nama }}</td>
                                     <td>{{ $pesanan-> alamat }}</td>
                                     <td>{{ $pesanan-> deskripsi }}</td>
@@ -80,20 +80,20 @@
                                             <button class="btn btn-warning" type="submit">Selesai</button>
                                         </form>
                                     </td>
-
                                     <td>
-                                    <a href="{{ url('/generate-pdf', $pesanan->id) }}" target="_blank" class="btn btn-danger btn-sm">Print</a>
-
+                                        <a href="/print/{{$pesanan->id}}" target="_blank" class="btn btn-danger btn-sm">Print</button>
                                     </td>
                                 </tr>
-                                @endforeach
-
+                                @empty
+                                <td colspan="9" class="text-center">-- Data Tidak Ada --</td>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
+                    <div class="text-center mt-4">
+                        {{ $pemesanan->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
-                
-				</div>
             </div>
         </div>
     </div>

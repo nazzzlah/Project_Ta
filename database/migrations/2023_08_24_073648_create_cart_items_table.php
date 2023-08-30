@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('harga',10,2);
             $table->decimal('total_harga',10,2);
             $table->boolean('ls_checkout')->default(false);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
