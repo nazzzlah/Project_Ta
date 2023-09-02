@@ -49,5 +49,17 @@
               <span class="menu-title">Transaksi</span>
             </a>
           </li>
+          </li><li class="nav-item">
+            <a class="nav-link" href="/shipping">
+              <i class="ti-stats-up menu-icon"></i>
+              <span class="menu-title">Shipping</span>
+            </a>
+          </li>
+          </li><li class="nav-item">
+            <a class="nav-link" href="/transaksi">
+              <i class="ti-stats-up menu-icon"></i>
+              <span class="menu-title">Laporan Penjualan</span>
+            </a>
+          </li>
         </ul>
       </nav>

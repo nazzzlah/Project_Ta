@@ -12,10 +12,12 @@ use App\http\Controllers\Backend\PesananController;
 use App\Http\Controllers\Backend\KategoriController;
 use App\Http\Controllers\Backend\ProductController;
 use App\http\Controllers\Backend\LoginController;
+use App\Http\Controllers\Backend\ShippingController;
 use App\http\Controllers\Backend\TBController;
 use App\Http\Controllers\Fontend\RiwayatController;
 use App\Http\Controllers\frontend\RiwayatController as FrontendRiwayatController;
 use App\Http\Controllers\Frontend\TransaksiController;
+use App\Models\Shipping;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,7 @@ Route::resource('/kategori', KategoriController::class)->middleware('auth');
 Route::resource('/product', ProductController::class)->middleware('auth');
 Route::resource('/pesanan', PesananController::class)->middleware('auth');
 Route::resource('/transaksi', TBController::class)->middleware('auth');
+Route::resource('/shipping', ShippingController::class)->middleware('auth');
 
 
 // Route::post('/addtocart', [CartItemController::class,'addToCart']);

@@ -50,10 +50,6 @@
                                                 <a href="/transaksi/{{ $transaksi->id }}/edit" class="btn btn-inverse-success  btn-icon-text btn-sm">Edit
                                                     <i class="ti-file btn-icon-append"></i>
                                                 </a>
-
-                                                <a href="/transaksi/{{ $transaksi->id }}/view" class="btn btn-inverse-primary  btn-icon-text btn-sm">View
-                                                    <i class="ti-eye btn-icon-append"></i>
-                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach
